@@ -11,7 +11,7 @@ A simple WebGL/Canvas animation of bouncing balls with dynamic physics and visua
 
 ## How to Use
 1. Clone the repository
-2. Open `index.html` in your browser
+2. Open `Interactive Bouncing Balls.html` in your browser
 3. Enjoy the animated ball simulation
 
 ## License
