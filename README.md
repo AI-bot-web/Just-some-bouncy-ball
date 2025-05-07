@@ -7,6 +7,7 @@ A simple WebGL/Canvas animation of bouncing balls with dynamic physics and visua
 - Edge collision detection
 - Smooth animation loop
 - Responsive to window resizing
+- Cursor-responsive balls
 
 ## How to Use
 1. Clone the repository
