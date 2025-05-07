@@ -24,21 +24,21 @@
     
     let width, height;
     let balls = [];
-    const numBalls = 500; // 球数量
+    const numBalls = 500; 
     const minRadius = 5;
     const maxRadius = 15;
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
 
-    // 鼠标速度相关变量
+    
     let lastMouseX = mouseX;
     let lastMouseY = mouseY;
     let lastTime = performance.now();
 
-    // 鼠标移动速度系数（0-1）
+    
     let mouseSpeedFactor = 0.5;
 
-    // 鼠标位置追踪
+    
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
@@ -52,7 +52,7 @@
     class Ball {
       constructor() {
         this.radius = Math.random() * (maxRadius - minRadius) + minRadius;
-        // 生成不重叠的初始位置
+       
         this.x = Math.random() * (width - 2 * this.radius) + this.radius;
         this.y = Math.random() * (height - 2 * this.radius) + this.radius;
         this.vx = (Math.random() - 0.5) * 2.0; // 初始速度
@@ -64,7 +64,7 @@
         this.x += this.vx;
         this.y += this.vy;
 
-        // 粘性墙壁反弹
+        
         if (this.x - this.radius < 0 || this.x + this.radius > width) {
           this.vx *= -0.85;
         }
@@ -99,39 +99,39 @@
     }
 
     function handleCollisions() {
-      // 计算鼠标速度
+     
       const deltaTime = performance.now() - lastTime;
       const dx = mouseX - lastMouseX;
       const dy = mouseY - lastMouseY;
-      const speed = Math.hypot(dx, dy) / deltaTime; // 像素/毫秒
+      const speed = Math.hypot(dx, dy) / deltaTime; 
             
-      // 更新速度系数（0-1之间的值）
-      mouseSpeedFactor = Math.min(1, speed * 0.01); // 调整系数以控制灵敏度
+      
+      mouseSpeedFactor = Math.min(1, speed * 0.01); 
 
-      // 更新上一帧位置
+     
       lastMouseX = mouseX;
       lastMouseY = mouseY;
       lastTime = performance.now();
 
-      // 鼠标碰撞检测
+      
       balls.forEach(ball => {
         if (ball.checkMouseCollision()) {
           const dx = ball.x - mouseX;
           const dy = ball.y - mouseY;
           const distance = Math.sqrt(dx * dx + dy * dy);
           
-          // 根据鼠标速度调整反弹力
-          const force = 5 * (1 + mouseSpeedFactor * 2); // 速度越大反弹越强
+        
+          const force = 5 * (1 + mouseSpeedFactor * 2); 
           
-          // 计算反弹方向
+         
           const angle = Math.atan2(dy, dx);
           ball.vx = Math.cos(angle) * force;
           ball.vy = Math.sin(angle) * force;
         }
       });
 
-      // 球与球碰撞检测（每帧进行多次检测）
-      for (let i = 0; i < 3; i++) { // 提高碰撞检测频率
+      
+      for (let i = 0; i < 3; i++) { 
         for (let j = 0; j < balls.length; j++) {
           for (let k = j + 1; k < balls.length; k++) {
             const b1 = balls[j];
@@ -142,20 +142,20 @@
             const distance = Math.sqrt(dx * dx + dy * dy);
             
             if (distance < b1.radius + b2.radius) {
-              // 简单弹性碰撞（未考虑质量）
+              
               const angle = Math.atan2(dy, dx);
               const sin = Math.sin(angle);
               const cos = Math.cos(angle);
               
-              // 旋转坐标系
+              
               const v1 = b1.vx * cos + b1.vy * sin;
               const v2 = b2.vx * cos + b2.vy * sin;
               
-              // 交换速度（简化的弹性碰撞）
+              
               [b1.vx, b2.vx] = [b2.vx, b1.vx];
               [b1.vy, b2.vy] = [b2.vy, b1.vy];
               
-              // 重新定位以避免穿透
+              
               const overlap = (b1.radius + b2.radius) - distance;
               b1.x -= overlap * cos;
               b1.y -= overlap * sin;
@@ -168,10 +168,10 @@
     }
 
     function animate() {
-      // 高频检测优化
+      
       handleCollisions();
       
-      // 更新画面
+      
       ctx.clearRect(0, 0, width, height);
       
       balls.forEach(ball => {
@@ -182,12 +182,12 @@
       requestAnimationFrame(animate);
     }
 
-    // 初始化
+    
     resize();
     initBalls();
     animate();
 
-    // 监听窗口大小变化
+    
     window.addEventListener('resize', resize);
   </script>
 </body>
